@@ -1,15 +1,16 @@
 const { createUserDB, getAllUserDB, deleteUserByIdDB, getUserByIdDB, updateUserPathDB, updateUserByIdDB, getUserByEmail } = require('../repository/repository');
 
 async function createUser(username, email, phone, pwd) {
-    const foundUser = getUserByEmail(email)
-    if (foundUser) throw new Error('')
+    const foundUser = await getUserByEmail(email)
+    if (foundUser[0]?.email) throw new Error('user already exists')
     const user = await createUserDB(username, email, phone, pwd);
     return user
 }
 async function authUser(email, pwd) {
-    const foundUser = getUserByEmail(email)
-    if (foundUser) throw new Error('')
-    return user
+    const foundUser = await getUserByEmail(email)
+    if (foundUser[0]?.email != email) throw new Error('email not found')
+    if (foundUser[0]?.pwd != pwd) throw new Error('password is incorrect')
+    return foundUser
 }
 
 async function getAllUser() {
