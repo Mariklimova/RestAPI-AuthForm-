@@ -1,7 +1,7 @@
+require('dotenv').config();
 
+const { app } = require('./src/app');
 
-const {app} = require('./src/app');
-
-app.listen(3002,()=>{
-    console.log('server is running');
-})
+app.listen(3002, () => {
+  console.log('server is running');
+});
