@@ -7,18 +7,18 @@ router.post('/reg', async (req, res) => {
   try {
     const { username, email, phone, pwd } = req.body;
     const user = await createUser(username, email, phone, pwd);
-    buildResponse(200,user,res);
+    buildResponse(200, user, res);
   } catch (er) {
-    res.status(404).send(er.message);
+    buildResponse(404, er.message, res);
   }
 });
 
 router.get('/', async (req, res) => {
   try {
     const user = await getAllUser();
-    res.status(200).send(user);
+    buildResponse(200, user, res);
   } catch (er) {
-    res.status(404).send(er.message);
+    buildResponse(404, er.message, res);
   }
 });
 
@@ -27,9 +27,9 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     const data = await deleteUserById(id);
 
-    res.status(200).send(data);
+    buildResponse(200, data, res);
   } catch (error) {
-    res.status(404).send(error.message);
+    buildResponse(404, error.message, res);
   }
 });
 
@@ -37,9 +37,9 @@ router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const user = await getUserById(id);
-    res.status(200).send(user);
+    buildResponse(200, user, res);
   } catch (error) {
-    res.status(404).send(error.message);
+    buildResponse(404, error.message, res);
   }
 });
 
@@ -48,9 +48,9 @@ router.patch('/:id', async (req, res) => {
     const { id } = req.params;
     const body = req.body;
     const user = await updateUserPath(id, body);
-    res.status(200).send(user);
+    buildResponse(200, user, res);
   } catch (error) {
-    res.status(404).send(error.message);
+    buildResponse(404, error.message, res);
   }
 });
 
@@ -59,9 +59,9 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { username, email, phone, pwd } = req.body;
     const user = await updateUserById(id, username, email, phone, pwd);
-    res.status(200).send(user);
+    buildResponse(200, user, res);
   } catch (er) {
-    res.status(404).send(er.message);
+    buildResponse(404, er.message, res);
   }
 });
 
@@ -71,9 +71,9 @@ router.post('/auth', async (req, res) => {
     const user = await authUser(email, pwd);
     const token = createToken();
     res.setHeader('access_token', token);
-    res.status(200).send(user);
+    buildResponse(200, user, res);
   } catch (er) {
-    res.status(404).send(er.message);
+    buildResponse(404, er.message, res);
   }
 });
 
