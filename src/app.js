@@ -5,11 +5,13 @@ const route = require('./controller/controller');
 
 const app = express();
 
-app.use(cors({
+app.use(
+  cors({
     origin: 'http://localhost:3001',
     methods: 'GET,POST,PUT,DELETE,PATCH',
-    credentials: true
-}));
+    credentials: true,
+  }),
+);
 app.use(bodyParser.json());
 app.use('/user', route);
 
