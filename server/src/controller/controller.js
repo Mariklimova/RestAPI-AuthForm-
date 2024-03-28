@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { createUser, getAllUser, deleteUserById, getUserById, updateUserPath, updateUserById, authUser } = require('../service/service');
 const { createToken } = require('../helper/jwt');
-const { buildResponse } = require('express');
+const { buildResponse } = require('../helper/buildResponse');
 
 router.post('/reg', async (req, res) => {
   try {
